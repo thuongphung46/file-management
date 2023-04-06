@@ -31,6 +31,7 @@
 - yarn: install package
 - yarn start: để run project
 - yarn build: build project
+- npm ...
 
 
 # Note:
