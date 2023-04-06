@@ -1,0 +1,9 @@
+#error-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  /* not the best practice to hardcode size */
+  height: 100vh;
+}
