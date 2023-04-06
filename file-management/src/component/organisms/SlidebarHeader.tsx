@@ -59,7 +59,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
           variant="subtitle1"
           fontWeight={700}
           color="#0098e5">
-          Phùng Hoài Thương
+          Thương
         </Typography>
       </div>
     </StyledSidebarHeader>
