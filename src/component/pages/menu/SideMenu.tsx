@@ -1,7 +1,5 @@
 import { Colors } from "common/color";
-import { MdDashboard, MdMenu, MdUpgrade } from "react-icons/md";
-import { FaServer } from "react-icons/fa";
-import { BiGitBranch } from "react-icons/bi";
+import { MdDashboard, MdMenu } from "react-icons/md";
 import { Menu, MenuItem, Sidebar, useProSidebar } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router-dom";
 

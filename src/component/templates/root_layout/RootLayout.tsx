@@ -31,17 +31,17 @@ const RootLayout = () => {
   }
 };
 
-const tempLayout = () => {
-  return (
-    <Box sx={{}}>
-      {/*<AppHeader />*/}
-      {/*<SideMenuDrawer />*/}
-      <SideMenu></SideMenu>
-      <Box id={"main-view"} sx={{ height: "100vh", flex: 1 }}>
-        <Outlet />
-      </Box>
-    </Box>
-  );
-};
+// const tempLayout = () => {
+//   return (
+//     <Box sx={{}}>
+//       {/*<AppHeader />*/}
+//       {/*<SideMenuDrawer />*/}
+//       <SideMenu></SideMenu>
+//       <Box id={"main-view"} sx={{ height: "100vh", flex: 1 }}>
+//         <Outlet />
+//       </Box>
+//     </Box>
+//   );
+// };
 
 export default RootLayout;
