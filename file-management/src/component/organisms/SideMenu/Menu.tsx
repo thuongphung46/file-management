@@ -31,6 +31,8 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import { SidebarHeader } from "component/organisms/SlidebarHeader";
 import { Link, useLocation } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
+// import { ListMenu } from "component/molecules/home/ListMenu";
+import { SidebarFooter } from "component/organisms/SidebarFooter";
 type Theme = "light" | "dark";
 
 const themes = {
@@ -80,9 +82,7 @@ const hexToRgba = (hex: string, alpha: number) => {
 };
 
 export const Playground: React.FC = () => {
-  const { toggleSidebar, collapseSidebar, broken, collapsed } = useProSidebar();
-
-  const [isRTL, setIsRTL] = React.useState<boolean>(false);
+  const { collapseSidebar, collapsed } = useProSidebar();
   const [hasImage, setHasImage] = React.useState<boolean>(false);
   const [theme, setTheme] = React.useState<Theme>("light");
   const location = useLocation();
@@ -161,11 +161,9 @@ export const Playground: React.FC = () => {
       style={{
         display: "flex",
         height: "100%",
-        direction: isRTL ? "rtl" : "ltr",
       }}>
       <Sidebar
         image="https://user-images.githubusercontent.com/25878302/144499035-2911184c-76d3-4611-86e7-bc4e8ff84ff5.jpg"
-        rtl={isRTL}
         breakPoint="lg"
         backgroundColor={hexToRgba(
           themes[theme].sidebar.backgroundColor,
@@ -270,8 +268,9 @@ export const Playground: React.FC = () => {
               <MenuItem disabled icon={<BarChartIcon />}>
                 Examples
               </MenuItem>
-              <MenuItem style={{ marginBottom: 16 }}>
+              <MenuItem style={{ marginBottom: 16, marginLeft: "-14px" }}>
                 <Switch
+                  sx={{ zIndex: "6" }}
                   id="image"
                   checked={hasImage}
                   onChange={handleImageChange}
@@ -281,35 +280,9 @@ export const Playground: React.FC = () => {
               </MenuItem>
             </Menu>
           </div>
-          {/* <SidebarFooter collapsed={collapsed} /> */}
+          <SidebarFooter collapsed={collapsed} />
         </div>
       </Sidebar>
-
-      <main>
-        <div style={{ padding: "16px 24px", color: "#44596e" }}>
-          <div style={{ marginBottom: "16px" }}>
-            {broken && (
-              <button className="sb-button" onClick={() => toggleSidebar()}>
-                Toggle
-              </button>
-            )}
-          </div>
-          <div style={{ marginBottom: "48px" }}>
-            <Typography variant="h4" fontWeight={600}>
-              Todo something edit by Phùng Hoài Thương
-            </Typography>
-            <Typography variant="body2">
-              React Pro Sidebar provides a set of components for creating high
-            </Typography>
-            {/* <PackageBadges /> */}
-          </div>
-
-          <div style={{ padding: "0 8px" }}>
-            <div style={{ marginBottom: 16 }}>item1</div>
-            <div style={{ marginBottom: 16 }}>text here</div>
-          </div>
-        </div>
-      </main>
     </div>
   );
 };
