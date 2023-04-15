@@ -16,23 +16,12 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import Brightness6Icon from "@mui/icons-material/Brightness6";
 import BarChartIcon from "@mui/icons-material/BarChart";
-// import { BarChart } from "./icons/BarChart";
-// import { Global } from "./icons/Global";
-// import { InkBottle } from "./icons/InkBottle";
-// import { Book } from "./icons/Book";
-// import { Calendar } from "./icons/Calendar";
-// import { ShoppingCart } from "./icons/ShoppingCart";
-// import { Service } from "./icons/Service";
-// import { SidebarFooter } from "./components/SidebarFooter";
-// import { Badge } from "./components/Badge";
-
-// import { PackageBadges } from "./components/PackageBadges";
-// import { Switch } from "./components/Switch";
 import { SidebarHeader } from "component/organisms/SlidebarHeader";
 import { Link, useLocation } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 // import { ListMenu } from "component/molecules/home/ListMenu";
 import { SidebarFooter } from "component/organisms/SidebarFooter";
+import HomeIcon from "@mui/icons-material/Home";
 type Theme = "light" | "dark";
 
 const themes = {
@@ -141,13 +130,23 @@ export const Playground: React.FC = () => {
     }),
   };
 
-  const menuData = [
+  const menuData1 = [
     {
       key: "DASHBOARD",
       path: "/dashboard",
       name: "Dashboard",
-      icon: <MdDashboard />,
+      icon: <HomeIcon />,
     },
+  ];
+
+  const menuData = [
+    {
+      key: "Pie charts",
+      path: "/pie-charts",
+      name: "Pie charts",
+      icon: <DiamondIcon />,
+    },
+
     {
       key: "HOME",
       path: "/",
@@ -187,6 +186,31 @@ export const Playground: React.FC = () => {
                   opacity: collapsed ? 0 : 0.7,
                   letterSpacing: "0.5px",
                 }}>
+                Home
+              </Typography>
+            </div>
+            <Menu menuItemStyles={menuItemStyles}>
+              {menuData1.map((x) => {
+                return (
+                  <MenuItem
+                    key={x.key}
+                    active={location.pathname.includes(x.path)}
+                    icon={x.icon}
+                    component={<Link to={x.path} />}>
+                    {`${x.name}`}
+                  </MenuItem>
+                );
+              })}
+            </Menu>
+            {/* ============================================================================================== */}
+            <div style={{ padding: "0 24px", marginBottom: "8px" }}>
+              <Typography
+                variant="body2"
+                fontWeight={600}
+                style={{
+                  opacity: collapsed ? 0 : 0.7,
+                  letterSpacing: "0.5px",
+                }}>
                 General
               </Typography>
             </div>
@@ -195,9 +219,6 @@ export const Playground: React.FC = () => {
                 label="Charts"
                 icon={<BarChartIcon />}
                 suffix={<Badge badgeContent={4} color="primary"></Badge>}>
-                <MenuItem>Pie charts</MenuItem>
-                <MenuItem> Line charts</MenuItem>
-                <MenuItem> Bar charts</MenuItem>
                 {menuData.map((x) => {
                   return (
                     <MenuItem
@@ -253,7 +274,7 @@ export const Playground: React.FC = () => {
                 Extra
               </Typography>
             </div>
-
+            {/* =======================================================here */}
             <Menu menuItemStyles={menuItemStyles}>
               <MenuItem
                 icon={<CalendarMonthIcon />}

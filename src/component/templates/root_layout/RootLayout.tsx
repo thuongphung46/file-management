@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
-import { SideMenu } from "../../pages/menu/SideMenu";
 import { Navigate, Outlet } from "react-router-dom";
 import { Playground } from "component/organisms/SideMenu/Menu";
+import { useState } from "react";
 
 const RootLayout = () => {
-  // const { servers } = useLoaderData();
-  const auth = true;
+  const [auth, setAuth] = useState(false);
+
   if (auth) {
     return (
       <Box
@@ -17,7 +17,6 @@ const RootLayout = () => {
           flex: 1,
           height: "100vh",
         }}>
-        {/* <SideMenu></SideMenu> */}
         <Playground />
         <Box
           id={"main-view"}
@@ -30,18 +29,5 @@ const RootLayout = () => {
     return <Navigate to="/login" />;
   }
 };
-
-// const tempLayout = () => {
-//   return (
-//     <Box sx={{}}>
-//       {/*<AppHeader />*/}
-//       {/*<SideMenuDrawer />*/}
-//       <SideMenu></SideMenu>
-//       <Box id={"main-view"} sx={{ height: "100vh", flex: 1 }}>
-//         <Outlet />
-//       </Box>
-//     </Box>
-//   );
-// };
 
 export default RootLayout;

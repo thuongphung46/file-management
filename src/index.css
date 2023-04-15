@@ -15,10 +15,12 @@ code {
 ::-webkit-scrollbar {
   width: 4px; /* Chiều rộng của thanh cuộn */
   background-color: #f5f5f5; /* Màu nền của thanh cuộn */
+  position: absolute;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #8f8c8c; /* Màu của thanh cuộn */
+  background-color: transparent; /* Màu của thanh cuộn */
   border-radius: 20px; /* Bo tròn góc của thanh cuộn */
+  position: absolute;
 }
 body {
   overflow: auto;

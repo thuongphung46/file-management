@@ -37,15 +37,13 @@ export default function ConfirmModal({
       <Modal
         open={onOpen}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Typography
             id="modal-modal-title"
             variant="h6"
             fontSize={16}
-            component="h2"
-          >
+            component="h2">
             {content}
           </Typography>
           <Box
@@ -53,8 +51,7 @@ export default function ConfirmModal({
               display: "flex",
               justifyContent: "right",
               marginTop: 4,
-            }}
-          >
+            }}>
             <CustomButton variant={"contained"} onClick={onAccept}>
               yes
             </CustomButton>
@@ -63,14 +60,13 @@ export default function ConfirmModal({
                 marginLeft: 1,
                 color: "black",
                 background: Colors.buttonCancel,
-                ["&:hover"]: {
+                "&:hover": {
                   backgroundColor: Colors.buttonCancel,
                   borderColor: Colors.buttonCancel,
                 },
               }}
               variant={"contained"}
-              onClick={onClose}
-            >
+              onClick={onClose}>
               cancel
             </CustomButton>
           </Box>
