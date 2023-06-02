@@ -13,7 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import dataFake from "data/data.json";
+// import dataFake from "data/data.json";
 
 function Copyright(props: any) {
   return (
@@ -80,7 +80,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               onChange={onEmailChange}
-              value={state.email}
+              // value={state.email}
               autoFocus
             />
             <TextField
@@ -92,7 +92,7 @@ export default function SignIn() {
               type="password"
               id="password"
               onChange={onPasswordChange}
-              value={state.password}
+              // value={state.password}
               autoComplete="current-password"
             />
             <FormControlLabel

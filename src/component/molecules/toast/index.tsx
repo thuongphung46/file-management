@@ -1,7 +1,7 @@
 import { toast, ToastOptions, ToastPosition } from "react-toastify";
 
 export const toastMessage = (
-  message: string,
+  message: string | undefined,
   messageType: "success" | "error"
 ) => {
   const toastConfig: ToastOptions<ToastPosition> = {
