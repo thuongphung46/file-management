@@ -17,10 +17,10 @@ sagaMiddleware.run(rootSaga);
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+// export type AppThunk<ReturnType = void> = ThunkAction<
+//   ReturnType,
+//   RootState,
+//   unknown,
+//   Action<string>
+// >;
 export default store;

@@ -16,7 +16,6 @@ const RootLayout = () => {
   }, [currentUser, navigate]);
 
   if (currentUser) {
-    <Navigate to="/dashboard" />;
     return (
       <div>
         <Box
