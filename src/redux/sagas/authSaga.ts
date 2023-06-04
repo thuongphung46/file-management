@@ -31,6 +31,7 @@ function* handleLogin(payload: LoginPayload) {
 }
 
 function* handleLogout() {
+  yield put(authActions.logout());
   yield clearToken();
   // Redirect to Login page
 }

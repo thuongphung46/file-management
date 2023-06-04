@@ -39,9 +39,10 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignIn() {
-  // const currentUser = Boolean(localStorage.getItem("access_token"));
   const navigate = useNavigate();
   const { isLoggedIn } = useAppSelector((state) => state.auth);
+  const currentUser = Boolean(localStorage.getItem("access_token"));
+
   const dispatch = useAppDispatch();
   const [state, setstate] = useState({
     email: "",

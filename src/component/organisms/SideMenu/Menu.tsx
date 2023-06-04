@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SubMenu,
   Sidebar,
@@ -23,7 +23,12 @@ import { MdDashboard } from "react-icons/md";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { SidebarFooter } from "component/organisms/SidebarFooter";
 import HomeIcon from "@mui/icons-material/Home";
-import CustomButton from "component/atoms/CustomButton";
+import Confirm from "component/molecules/popup/confirm";
+import { clearToken } from "common/function";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "redux/hook";
+import { authActions } from "redux/slices/authSlice";
+
 type Theme = "light" | "dark";
 
 const themes = {
@@ -76,7 +81,32 @@ export const Playground: React.FC = () => {
   const { collapseSidebar, collapsed } = useProSidebar();
   const [hasImage, setHasImage] = useState<boolean>(false);
   const [theme, setTheme] = useState<Theme>("light");
+  const [open, setOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const currentUser = Boolean(localStorage.getItem("access_token"));
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+  }, [currentUser, navigate]);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+    clearToken();
+    setOpen(false);
+  };
+
   // handle on RTL change event
 
   // handle on theme change event
@@ -302,12 +332,20 @@ export const Playground: React.FC = () => {
                 />
                 Theme
               </MenuItem>
-              <MenuItem icon={<LogoutIcon />}>Logout</MenuItem>
+              <MenuItem icon={<LogoutIcon />} onClick={handleClickOpen}>
+                Logout
+              </MenuItem>
             </Menu>
           </div>
           <SidebarFooter collapsed={collapsed} />
         </div>
       </Sidebar>
+      <Confirm
+        content={"Are you sure?"}
+        onOpen={open}
+        onClose={handleClose}
+        onAccept={handleLogout}
+      />
     </div>
   );
 };
