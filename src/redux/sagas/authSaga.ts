@@ -19,7 +19,7 @@ function* handleLogin(payload: LoginPayload) {
           name: payload.UserName,
         })
       );
-      toastMessage(response.message, "success");
+      toastMessage(`Wellcome ${payload.UserName}`, "success");
     } else {
       yield put(authActions.loginFailed(response.message)); // Dispatch action
       toastMessage(response.message, "error");

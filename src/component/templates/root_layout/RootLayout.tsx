@@ -1,12 +1,21 @@
 import { Box } from "@mui/material";
 import { Navigate, Outlet } from "react-router-dom";
 import { Playground } from "component/organisms/SideMenu/Menu";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // import { useState } from "react";
 
 const RootLayout = () => {
-  // const [auth, setAuth] = useState(true);
-  const auth = true;
-  if (auth) {
+  const navigate = useNavigate();
+  const currentUser = Boolean(localStorage.getItem("access_token"));
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/dashboard");
+    }
+  }, [currentUser, navigate]);
+
+  if (currentUser) {
     <Navigate to="/dashboard" />;
     return (
       <div>

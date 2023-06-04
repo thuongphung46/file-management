@@ -1,6 +1,9 @@
 {
-  "auth": {
-    "email": "thuongphung46@gmail.com",
-    "password": "123456"
-  }
+  "msg_code": 200,
+  "content": {
+    "access_token": "SESSION=483cdb9e-ac3f-4bbf-9496-ef6ee71114ed"
+  },
+  "message": "Successfull!",
+  "msg_array": null,
+  "api_msg_detail": null
 }
