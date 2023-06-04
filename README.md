@@ -1,5 +1,5 @@
 # 1.Introduction
- file-management
+ file-management and music app
 # 2.Getting Started
 
 ## 2.1 Công cụ
@@ -21,7 +21,7 @@
 ### 2.2.3 React Router Dom
 - Document: https://reactrouter.com/en/main/start/overview
 
-### 2.2.4 Redux Toolkit
+### 2.2.4 Redux Toolkit and redux-saga
 - Document: https://redux-toolkit.js.org/introduction/getting-started
 
 # Build and Test
