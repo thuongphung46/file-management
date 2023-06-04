@@ -19,13 +19,11 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import { SidebarHeader } from "component/organisms/SlidebarHeader";
 import { Link, useLocation } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
-// import { ListMenu } from "component/molecules/home/ListMenu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { SidebarFooter } from "component/organisms/SidebarFooter";
 import HomeIcon from "@mui/icons-material/Home";
 import Confirm from "component/molecules/popup/confirm";
 import { clearToken } from "common/function";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "redux/hook";
 import { authActions } from "redux/slices/authSlice";
 
@@ -80,18 +78,11 @@ const hexToRgba = (hex: string, alpha: number) => {
 export const Playground: React.FC = () => {
   const { collapseSidebar, collapsed } = useProSidebar();
   const [hasImage, setHasImage] = useState<boolean>(false);
+  const [toggled, setToggled] = React.useState(false);
   const [theme, setTheme] = useState<Theme>("light");
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const currentUser = Boolean(localStorage.getItem("access_token"));
-
-  useEffect(() => {
-    if (!currentUser) {
-      navigate("/login");
-    }
-  }, [currentUser, navigate]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -196,6 +187,7 @@ export const Playground: React.FC = () => {
       <Sidebar
         image="https://user-images.githubusercontent.com/25878302/144499035-2911184c-76d3-4611-86e7-bc4e8ff84ff5.jpg"
         breakPoint="lg"
+        // toggled={toggled}
         backgroundColor={hexToRgba(
           themes[theme].sidebar.backgroundColor,
           hasImage ? 0.9 : 1
@@ -208,6 +200,7 @@ export const Playground: React.FC = () => {
           <SidebarHeader
             onClick={() => collapseSidebar()}
             style={{ marginBottom: "24px", marginTop: "16px" }}
+            close={collapsed}
           />
 
           <div style={{ flex: 1, marginBottom: "32px" }}>

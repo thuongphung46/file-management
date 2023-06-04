@@ -21,7 +21,7 @@ const StyledButton = styled.a`
 `;
 
 const StyledSidebarFooter = styled.div`
-  width: 50%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,8 +47,7 @@ const StyledCollapsedSidebarFooter = styled.a`
   /* background: #0098e5; */
 `;
 
-const codeUrl =
-  "https://memevn.com/files/meme/meme-cho/cho-cam-sung-chi-vao-nguoi-xem-mat-du-ton.jpg";
+const codeUrl = "https://github.com/thuongphung46/file-management.git";
 
 export const SidebarFooter: React.FC<SidebarFooterProps> = ({
   children,
@@ -60,7 +59,7 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
       style={{
         display: "flex",
         justifyContent: "center",
-        width: 300,
+        // width: 300,
         paddingBottom: "20px",
       }}>
       {collapsed ? (
@@ -72,7 +71,7 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
           <div style={{ marginBottom: "12px" }}>
             <GitHubIcon />
           </div>
-          <Typography fontWeight={600}>Pro Sidebar</Typography>
+          <Typography fontWeight={600}>Github code</Typography>
           <Typography
             variant="caption"
             style={{ letterSpacing: 1, opacity: 0.7 }}>

@@ -6,7 +6,14 @@ import { useNavigate } from "react-router-dom";
 // import { useState } from "react";
 
 const RootLayout = () => {
+  const navigate = useNavigate();
   const currentUser = Boolean(localStorage.getItem("access_token"));
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/dashboard");
+    }
+  }, [currentUser, navigate]);
 
   if (currentUser) {
     return (
