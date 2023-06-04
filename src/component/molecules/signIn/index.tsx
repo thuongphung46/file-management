@@ -15,9 +15,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { authActions } from "redux/slices/authSlice";
 import { useAppDispatch, useAppSelector } from "redux/hook";
-import { Navigate } from "react-router";
 import { useNavigate } from "react-router-dom";
-// import dataFake from "data/data.json";
+import { toastMessage } from "../toast";
 
 function Copyright(props: any) {
   return (
@@ -39,9 +38,10 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignIn() {
-  // const currentUser = Boolean(localStorage.getItem("access_token"));
   const navigate = useNavigate();
   const { isLoggedIn } = useAppSelector((state) => state.auth);
+  // const currentUser = Boolean(localStorage.getItem("access_token"));
+
   const dispatch = useAppDispatch();
   const [state, setstate] = useState({
     email: "",
@@ -65,6 +65,8 @@ export default function SignIn() {
           Password: state.password,
         })
       );
+    } else {
+      toastMessage("Please enter information ", "error");
     }
   };
 

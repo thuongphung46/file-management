@@ -4,6 +4,7 @@ import { Typography } from "@mui/material";
 import { useProSidebar } from "react-pro-sidebar";
 interface SidebarHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
+  close: boolean;
 }
 
 const StyledSidebarHeader = styled.div`
@@ -21,6 +22,7 @@ const StyledSidebarHeader = styled.div`
 
 const StyledLogo = styled.div<{ rtl?: boolean }>`
   width: 35px;
+  position: absolute;
   min-width: 35px;
   height: 35px;
   min-height: 35px;
@@ -46,6 +48,7 @@ const StyledLogo = styled.div<{ rtl?: boolean }>`
 `;
 
 export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
+  close,
   children,
   ...rest
 }) => {
@@ -54,13 +57,15 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
     <StyledSidebarHeader {...rest}>
       <div style={{ display: "flex", alignItems: "center" }}>
         <StyledLogo rtl={rtl}>M</StyledLogo>
-        <Typography
-          sx={{ position: "absolute", marginLeft: 8 }}
-          variant="subtitle1"
-          fontWeight={700}
-          color="#0098e5">
-          Music App
-        </Typography>
+        {close ? null : (
+          <Typography
+            sx={{ position: "absolute", marginLeft: 8 }}
+            variant="subtitle1"
+            fontWeight={700}
+            color="#0098e5">
+            Music
+          </Typography>
+        )}
       </div>
     </StyledSidebarHeader>
   );

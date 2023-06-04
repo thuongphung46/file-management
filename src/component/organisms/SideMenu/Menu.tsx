@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SubMenu,
   Sidebar,
@@ -19,11 +19,14 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import { SidebarHeader } from "component/organisms/SlidebarHeader";
 import { Link, useLocation } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
-// import { ListMenu } from "component/molecules/home/ListMenu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { SidebarFooter } from "component/organisms/SidebarFooter";
 import HomeIcon from "@mui/icons-material/Home";
-import CustomButton from "component/atoms/CustomButton";
+import Confirm from "component/molecules/popup/confirm";
+import { clearToken } from "common/function";
+import { useAppDispatch } from "redux/hook";
+import { authActions } from "redux/slices/authSlice";
+
 type Theme = "light" | "dark";
 
 const themes = {
@@ -76,7 +79,24 @@ export const Playground: React.FC = () => {
   const { collapseSidebar, collapsed } = useProSidebar();
   const [hasImage, setHasImage] = useState<boolean>(false);
   const [theme, setTheme] = useState<Theme>("light");
+  const [open, setOpen] = useState(false);
   const location = useLocation();
+  const dispatch = useAppDispatch();
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+    clearToken();
+    setOpen(false);
+  };
+
   // handle on RTL change event
 
   // handle on theme change event
@@ -165,7 +185,6 @@ export const Playground: React.FC = () => {
       }}>
       <Sidebar
         image="https://user-images.githubusercontent.com/25878302/144499035-2911184c-76d3-4611-86e7-bc4e8ff84ff5.jpg"
-        breakPoint="lg"
         backgroundColor={hexToRgba(
           themes[theme].sidebar.backgroundColor,
           hasImage ? 0.9 : 1
@@ -178,6 +197,7 @@ export const Playground: React.FC = () => {
           <SidebarHeader
             onClick={() => collapseSidebar()}
             style={{ marginBottom: "24px", marginTop: "16px" }}
+            close={collapsed}
           />
 
           <div style={{ flex: 1, marginBottom: "32px" }}>
@@ -302,12 +322,20 @@ export const Playground: React.FC = () => {
                 />
                 Theme
               </MenuItem>
-              <MenuItem icon={<LogoutIcon />}>Logout</MenuItem>
+              <MenuItem icon={<LogoutIcon />} onClick={handleClickOpen}>
+                Logout
+              </MenuItem>
             </Menu>
           </div>
           <SidebarFooter collapsed={collapsed} />
         </div>
       </Sidebar>
+      <Confirm
+        content={"Are you sure?"}
+        onOpen={open}
+        onClose={handleClose}
+        onAccept={handleLogout}
+      />
     </div>
   );
 };
