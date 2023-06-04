@@ -53,13 +53,13 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
   return (
     <StyledSidebarHeader {...rest}>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <StyledLogo rtl={rtl}>P</StyledLogo>
+        <StyledLogo rtl={rtl}>M</StyledLogo>
         <Typography
-          sx={{ position: "fix" }}
+          sx={{ position: "absolute", marginLeft: 8 }}
           variant="subtitle1"
           fontWeight={700}
           color="#0098e5">
-          Thương
+          Music App
         </Typography>
       </div>
     </StyledSidebarHeader>

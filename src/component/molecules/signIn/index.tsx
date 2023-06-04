@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,7 +13,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import dataFake from "data/data.json";
+import { authActions } from "redux/slices/authSlice";
+import { useAppDispatch, useAppSelector } from "redux/hook";
+import { Navigate } from "react-router";
+import { useNavigate } from "react-router-dom";
+// import dataFake from "data/data.json";
 
 function Copyright(props: any) {
   return (
@@ -35,7 +39,11 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const [state, setstate] = React.useState({
+  // const currentUser = Boolean(localStorage.getItem("access_token"));
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const [state, setstate] = useState({
     email: "",
     password: "",
   });
@@ -48,6 +56,23 @@ export default function SignIn() {
   const onPasswordChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setstate({ ...state, password: e.target.value });
   };
+
+  const handleLogin = () => {
+    if (state.email != null && state.password != null) {
+      dispatch(
+        authActions.login({
+          UserName: state.email,
+          Password: state.password,
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/dashboard");
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -80,7 +105,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               onChange={onEmailChange}
-              value={state.email}
+              // value={state.email}
               autoFocus
             />
             <TextField
@@ -92,7 +117,7 @@ export default function SignIn() {
               type="password"
               id="password"
               onChange={onPasswordChange}
-              value={state.password}
+              // value={state.password}
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -101,6 +126,7 @@ export default function SignIn() {
             />
             <Button
               type="submit"
+              onClick={handleLogin}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}>

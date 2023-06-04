@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SubMenu,
   Sidebar,
@@ -20,8 +20,10 @@ import { SidebarHeader } from "component/organisms/SlidebarHeader";
 import { Link, useLocation } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 // import { ListMenu } from "component/molecules/home/ListMenu";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { SidebarFooter } from "component/organisms/SidebarFooter";
 import HomeIcon from "@mui/icons-material/Home";
+import CustomButton from "component/atoms/CustomButton";
 type Theme = "light" | "dark";
 
 const themes = {
@@ -72,8 +74,8 @@ const hexToRgba = (hex: string, alpha: number) => {
 
 export const Playground: React.FC = () => {
   const { collapseSidebar, collapsed } = useProSidebar();
-  const [hasImage, setHasImage] = React.useState<boolean>(false);
-  const [theme, setTheme] = React.useState<Theme>("light");
+  const [hasImage, setHasImage] = useState<boolean>(false);
+  const [theme, setTheme] = useState<Theme>("light");
   const location = useLocation();
   // handle on RTL change event
 
@@ -177,6 +179,7 @@ export const Playground: React.FC = () => {
             onClick={() => collapseSidebar()}
             style={{ marginBottom: "24px", marginTop: "16px" }}
           />
+
           <div style={{ flex: 1, marginBottom: "32px" }}>
             <div style={{ padding: "0 24px", marginBottom: "8px" }}>
               <Typography
@@ -299,6 +302,7 @@ export const Playground: React.FC = () => {
                 />
                 Theme
               </MenuItem>
+              <MenuItem icon={<LogoutIcon />}>Logout</MenuItem>
             </Menu>
           </div>
           <SidebarFooter collapsed={collapsed} />

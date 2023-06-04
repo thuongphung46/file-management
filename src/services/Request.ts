@@ -15,14 +15,14 @@ const axiosInstance = axios.create({
   },
 });
 
-const axiosRequestFileInstance = axios.create({
-  baseURL: baseUrl,
-  timeout: GlobalConstant.REQUEST_TIMEOUT,
-  headers: {
-    Accept: "application/json, text/plain, */*",
-    Authorization: "",
-  },
-});
+// const axiosRequestFileInstance = axios.create({
+//   baseURL: baseUrl,
+//   timeout: GlobalConstant.REQUEST_TIMEOUT,
+//   headers: {
+//     Accept: "application/json, text/plain, */*",
+//     Authorization: "",
+//   },
+// });
 
 const composeUri = (controller: string, action: string, obj: any) => {
   try {

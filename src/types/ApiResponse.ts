@@ -13,3 +13,10 @@ export type ApiResponse<T> = {
   message?: string;
 };
 
+export type ApiRes = {
+  api_msg_detail: any;
+  content?: any;
+  message?: string;
+  msg_array: string;
+  msg_code: number;
+};
