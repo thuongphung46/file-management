@@ -78,7 +78,6 @@ const hexToRgba = (hex: string, alpha: number) => {
 export const Playground: React.FC = () => {
   const { collapseSidebar, collapsed } = useProSidebar();
   const [hasImage, setHasImage] = useState<boolean>(false);
-  const [toggled, setToggled] = React.useState(false);
   const [theme, setTheme] = useState<Theme>("light");
   const [open, setOpen] = useState(false);
   const location = useLocation();
@@ -186,8 +185,6 @@ export const Playground: React.FC = () => {
       }}>
       <Sidebar
         image="https://user-images.githubusercontent.com/25878302/144499035-2911184c-76d3-4611-86e7-bc4e8ff84ff5.jpg"
-        breakPoint="lg"
-        // toggled={toggled}
         backgroundColor={hexToRgba(
           themes[theme].sidebar.backgroundColor,
           hasImage ? 0.9 : 1
