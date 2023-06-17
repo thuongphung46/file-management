@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   SubMenu,
   Sidebar,
-  useProSidebar,
   menuClasses,
   MenuItem,
   Menu,
@@ -76,7 +75,8 @@ const hexToRgba = (hex: string, alpha: number) => {
 };
 
 export const Playground: React.FC = () => {
-  const { collapseSidebar, collapsed } = useProSidebar();
+  // const { collapseSidebar, collapsed } = useProSidebar();
+  const [collapsed, setCollapsed] = useState(false);
   const [hasImage, setHasImage] = useState<boolean>(false);
   const [theme, setTheme] = useState<Theme>("light");
   const [open, setOpen] = useState(false);
@@ -92,8 +92,9 @@ export const Playground: React.FC = () => {
   };
 
   const handleLogout = () => {
-    dispatch(authActions.logout());
     clearToken();
+    dispatch(authActions.logout());
+
     setOpen(false);
   };
 
@@ -184,6 +185,7 @@ export const Playground: React.FC = () => {
         height: "100%",
       }}>
       <Sidebar
+        collapsed={collapsed}
         image="https://user-images.githubusercontent.com/25878302/144499035-2911184c-76d3-4611-86e7-bc4e8ff84ff5.jpg"
         backgroundColor={hexToRgba(
           themes[theme].sidebar.backgroundColor,
@@ -195,7 +197,8 @@ export const Playground: React.FC = () => {
         <div
           style={{ display: "flex", flexDirection: "column", height: "100%" }}>
           <SidebarHeader
-            onClick={() => collapseSidebar()}
+            // onClick={() => collapseSidebar()}
+            onClick={() => setCollapsed(!collapsed)}
             style={{ marginBottom: "24px", marginTop: "16px" }}
             close={collapsed}
           />
@@ -330,12 +333,14 @@ export const Playground: React.FC = () => {
           <SidebarFooter collapsed={collapsed} />
         </div>
       </Sidebar>
-      <Confirm
-        content={"Are you sure?"}
-        onOpen={open}
-        onClose={handleClose}
-        onAccept={handleLogout}
-      />
+      <div>
+        <Confirm
+          content={"Are you want logout ?"}
+          onOpen={open}
+          onClose={handleClose}
+          onAccept={handleLogout}
+        />
+      </div>
     </div>
   );
 };
