@@ -2,7 +2,7 @@ import axios, { HttpStatusCode } from "axios";
 import GlobalConstant from "constants/GlobalConstant";
 import { ApiResponse } from "types/ApiResponse";
 
-const baseUrl = process.env.REACT_APP_API_ENDPOINT;
+const baseUrl = "http://localhost:8083/api";
 
 const axiosInstance = axios.create({
   baseURL: baseUrl,
@@ -47,17 +47,14 @@ const composeUri = (controller: string, action: string, obj: any) => {
 
 export const HttpClientRequest = (controller: string) => {
   return {
-    getAsync: async (
-      action: string,
-      params?: any
-    ): Promise<ApiResponse<any>> => {
+    getAsync: async (action: string, params?: any): Promise<any> => {
       try {
         let uri = composeUri(controller, action, params);
         return await axiosInstance
           .get(uri, params)
           .then((response) => {
             if (response.status === HttpStatusCode.Ok) {
-              return response.data as ApiResponse<any>;
+              return response.data as any;
             }
           })
           .catch((error) => {
@@ -71,10 +68,7 @@ export const HttpClientRequest = (controller: string) => {
       }
     },
 
-    postAsync: async (
-      action: string,
-      params?: any
-    ): Promise<ApiResponse<any>> => {
+    postAsync: async (action: string, params?: any): Promise<any> => {
       try {
         let uri = composeUri(controller, action, params);
 

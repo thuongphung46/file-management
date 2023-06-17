@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from "component/pages/error";
 import { HomePage } from "component/pages/home/HomePage";
-import { ListMenu } from "component/molecules/home/ListMenu";
+import { ListUser } from "component/molecules/home/ListUser";
 import SignIn from "component/molecules/signIn/index";
 import RootLayout from "component/templates/root_layout/RootLayout";
 
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <HomePage />,
-        children: [{ path: "/dashboard", element: <ListMenu /> }],
+        children: [{ path: "/dashboard", element: <ListUser /> }],
       },
     ],
   },

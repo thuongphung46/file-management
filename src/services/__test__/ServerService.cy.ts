@@ -1,6 +1,6 @@
 import { ApiResponse } from "types/ApiResponse";
 
-import { ServerService } from "../ServerService";
+// import { ServerService } from "../ServerService";
 describe("[API REQUEST] - Server Information", () => {
   // let data =;
   // it("CAN REQUEST", () => {
@@ -16,6 +16,4 @@ describe("[API REQUEST] - Server Information", () => {
   //     assert.isArray(data.data, "You so good!");
   //   });
   // });
-
-
 });
