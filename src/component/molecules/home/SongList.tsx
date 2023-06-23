@@ -1,36 +1,42 @@
-import { Box, Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import {
   DataGrid,
   GridActionsCellItem,
   GridColDef,
   GridRowId,
-  GridRowModes,
-  GridRowModesModel,
-  GridRowSelectionModel,
 } from "@mui/x-data-grid";
-import { UserService } from "services/UserService";
-import { User } from "types/UserResponse";
+import { SongService } from "services/SongService";
 import { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import CustomTypography from "component/atoms/CustomTypography";
-import CustomLink from "component/atoms/CustomLink";
-import Avatar from "@mui/material/Avatar";
+import { useParams } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
-export const ListUser = () => {
-  const [state, setState] = useState<User[]>([]);
-  const [show, setShow] = useState(false);
+interface Song {
+  id: number;
+  name: string;
+  category: any;
+  url: string;
+  thumbnailUrl: string;
+  creatorId: any;
+  createdAt: string;
+  downloadCount: number;
+  listenedCount: number;
+}
+
+export const SongList = () => {
+  const { id } = useParams();
+  const [state, setState] = useState<Song[]>([]);
   useEffect(() => {
-    UserService.GetListUser().then((res) => {
+    SongService.GetAllSong().then((res) => {
       setState(res);
     });
-  }, []);
+  }, [id]);
 
   const columns: GridColDef[] = [
     {
-      field: "avatarUrl",
-      headerName: "Avatar",
+      field: "thumbnailUrl",
+      headerName: "hình ảnh",
       width: 200,
       renderCell(params) {
         return (
@@ -41,41 +47,29 @@ export const ListUser = () => {
       },
     },
     {
-      field: "userName",
-      headerName: "Họ và tên",
+      field: "name",
+      headerName: "Tên nhạc",
       width: 200,
+    },
+    {
+      field: "category",
+      headerName: "Thể loại",
+      width: 100,
+    },
+    {
+      field: "url",
+      headerName: "file",
+      width: 300,
       renderCell(params) {
         return (
           <>
-            <CustomLink to={`/listuser/playlists/${params.id}`}>
-              {params.value}
-            </CustomLink>
+            <audio controls src={`${params.value}`}>
+              Your browser does not support the
+              <code>audio</code> element.
+            </audio>
           </>
         );
       },
-    },
-    {
-      field: "password",
-      headerName: "Mật khẩu",
-      width: 100,
-      renderCell(params) {
-        return (
-          <>
-            <div> {show ? params.value : "******"}</div>
-
-            <Button
-              sx={{ float: "right" }}
-              onClick={() => setShow(!show)}
-              startIcon={<RemoveRedEyeIcon />}
-            />
-          </>
-        );
-      },
-    },
-    {
-      field: "followersCount",
-      headerName: "Số follow",
-      width: 100,
     },
     {
       field: "createdAt",
@@ -109,12 +103,11 @@ export const ListUser = () => {
   const handleDeleteClick = (id: GridRowId) => () => {
     setState(state.filter((row) => row.id !== id));
   };
-
   return (
     <>
-      <CustomTypography>Danh sách người dùng</CustomTypography>
+      <CustomTypography>Danh sách nhạc</CustomTypography>
       <Button sx={{ margin: 1 }} variant="contained" startIcon={<AddIcon />}>
-        Thêm Người dùng
+        Thêm nhạc
       </Button>
       <DataGrid
         sx={{ width: "100%", height: 350, marginTop: 2, padding: 2 }}

@@ -1,6 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
 import GlobalConstant from "constants/GlobalConstant";
-import { ApiResponse } from "types/ApiResponse";
+// import { ApiResponse } from "types/ApiResponse"; chưa dùng đến
 
 const baseUrl = "http://localhost:8083/api";
 
