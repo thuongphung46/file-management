@@ -91,5 +91,47 @@ export const HttpClientRequest = (controller: string) => {
         throw error;
       }
     },
+
+    deleteAsync: async (action: string, params?: any): Promise<any> => {
+      try {
+        let uri = composeUri(controller, action, params);
+        return await axiosInstance
+          .delete(uri, params)
+          .then((response) => {
+            if (response.status === HttpStatusCode.Ok) {
+              return response.data as any;
+            }
+          })
+          .catch((error) => {
+            if (error.response) {
+              return error.response;
+            }
+            throw error;
+          });
+      } catch (e) {
+        throw e;
+      }
+    },
+
+    putAsync: async (action: string, params?: any): Promise<any> => {
+      try {
+        let uri = composeUri(controller, action, params);
+        return await axiosInstance
+          .put(uri, params)
+          .then((response) => {
+            if (response.status === HttpStatusCode.Ok) {
+              return response.data as any;
+            }
+          })
+          .catch((error) => {
+            if (error.response) {
+              return error.response;
+            }
+            throw error;
+          });
+      } catch (e) {
+        throw e;
+      }
+    },
   };
 };

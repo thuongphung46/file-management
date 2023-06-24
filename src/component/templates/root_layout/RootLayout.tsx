@@ -29,6 +29,7 @@ const RootLayout = () => {
           }}>
           <Playground />
           <Box
+            padding={4}
             id={"main-view"}
             sx={{ height: "100%", flex: 1, overflow: "auto" }}>
             <Outlet />

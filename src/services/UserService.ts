@@ -31,4 +31,19 @@ export const UserService = {
       },
     });
   },
+  DeleteUser: async (id: string | undefined) => {
+    return await HttpClientRequest(controller).deleteAsync(`delete/${id}`);
+  },
+  UpdateUser: async (
+    id: string | undefined,
+    name: string,
+    username: string,
+    password: string
+  ) => {
+    return await HttpClientRequest(controller).deleteAsync(`update/${id}`, {
+      name: name,
+      userName: username,
+      password: password,
+    });
+  },
 };

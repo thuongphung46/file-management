@@ -27,6 +27,7 @@ import { useAppDispatch } from "redux/hook";
 import { authActions } from "redux/slices/authSlice";
 import { BsMusicNoteList } from "react-icons/bs";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
+import { RiPlayList2Fill } from "react-icons/ri";
 
 type Theme = "light" | "dark";
 
@@ -168,6 +169,12 @@ export const Playground: React.FC = () => {
       path: "/listsong",
       name: "danh sách bài hát",
       icon: <BsMusicNoteList />,
+    },
+    {
+      key: "PLAYLIST",
+      path: "/playlist",
+      name: "danh sách play list",
+      icon: <RiPlayList2Fill />,
     },
   ];
 

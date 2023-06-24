@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   DialogActions,
   DialogContent,
@@ -129,6 +130,12 @@ export const ListUser = () => {
         return [
           <GridActionsCellItem
             icon={<DeleteIcon />}
+            label="Update"
+            onClick={handleUpdate(id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
             label="Delete"
             onClick={handleDeleteClick(id)}
             color="inherit"
@@ -139,7 +146,24 @@ export const ListUser = () => {
   ];
 
   const handleDeleteClick = (id: GridRowId) => () => {
-    setState(state.filter((row) => row.id !== id));
+    UserService.DeleteUser(id as string).then((res) => {
+      if (res.status === "ok") {
+        setState(state.filter((row) => row.id !== id));
+        toastMessage("Xóa thành công !", "success");
+      } else {
+        toastMessage("Xóa thất bại !", "error");
+      }
+    });
+  };
+  const handleUpdate = (id: GridRowId) => () => {
+    // UserService.UpdateUser(id as string).then((res) => {
+    //   if (res.status === "ok") {
+    //     setState(state.filter((row) => row.id !== id));
+    //     toastMessage("Xóa thành công !", "success");
+    //   } else {
+    //     toastMessage("Xóa thất bại !", "error");
+    //   }
+    // });
   };
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -178,7 +202,9 @@ export const ListUser = () => {
         )
           .then((res) => {
             if (res.status === 200) {
-              setState(res.data);
+              // setState(res.data.data);
+              //setState cộng thêm res.data.dât
+              setState([...state, res.data.data]);
               toastMessage("Thêm Thành công !", "success");
             } else {
               toastMessage("Thêm Thất bại !", "error");
@@ -196,7 +222,7 @@ export const ListUser = () => {
   };
 
   return (
-    <>
+    <Box>
       <CustomTypography>Danh sách người dùng</CustomTypography>
       <Button
         startIcon={<AddIcon />}
@@ -205,7 +231,7 @@ export const ListUser = () => {
         Thêm người dùng
       </Button>
       <DataGrid
-        sx={{ width: "100%", height: 350, marginTop: 2, padding: 2 }}
+        sx={{ width: "100%", height: 500, marginTop: 2, padding: 2 }}
         columns={columns}
         rows={state}
         // checkboxSelection
@@ -278,6 +304,6 @@ export const ListUser = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 };

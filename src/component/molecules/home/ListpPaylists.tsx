@@ -57,17 +57,17 @@ export const ListPlaylist = () => {
   ];
 
   return (
-    <>
+    <Box padding={4}>
       <CustomTypography>Danh sách play list</CustomTypography>
 
       <DataGrid
-        sx={{ width: "100%", height: 350, marginTop: 2, padding: 2 }}
+        sx={{ width: "100%", height: 500, marginTop: 2, padding: 2 }}
         columns={columns}
         rows={state}
         // checkboxSelection
         getRowId={(row) => row.id}
         // onRowSelectionModelChange={handleSelectionChange}
       />
-    </>
+    </Box>
   );
 };

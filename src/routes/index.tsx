@@ -4,8 +4,10 @@ import { HomePage } from "component/pages/home/HomePage";
 import { ListUser } from "component/molecules/home/ListUser";
 import { ListPlaylist } from "component/molecules/home/ListpPaylists";
 import { SongList } from "component/molecules/home/SongList";
+import { PlayList } from "component/molecules/home/PlayList";
 import SignIn from "component/molecules/signIn/index";
 import RootLayout from "component/templates/root_layout/RootLayout";
+import PlayListPage from "component/organisms/playlist/index";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,16 @@ const router = createBrowserRouter([
         path: "/listsong",
         element: <HomePage />,
         children: [{ path: "/listsong", element: <SongList /> }],
+      },
+      // {
+      //   path: "/playlist",
+      //   element: <HomePage />,
+      //   children: [{ path: "/playlist", element: <PlayList /> }],
+      // },
+      {
+        path: "playlist",
+        element: <PlayListPage />,
+        children: [{ path: ":version", element: <PlayListPage /> }],
       },
     ],
   },

@@ -1,32 +1,41 @@
-import { Avatar, Button } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  SelectChangeEvent,
+  TextField,
+} from "@mui/material";
 import {
   DataGrid,
   GridActionsCellItem,
   GridColDef,
   GridRowId,
 } from "@mui/x-data-grid";
-import { SongService } from "services/SongService";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import CustomTypography from "component/atoms/CustomTypography";
 import { useParams } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-
-interface Song {
-  id: number;
-  name: string;
-  category: any;
-  url: string;
-  thumbnailUrl: string;
-  creatorId: any;
-  createdAt: string;
-  downloadCount: number;
-  listenedCount: number;
-}
+import { Song, NewSong } from "types/SongResponse";
+import { toastMessage } from "component/molecules/toast/index";
+import { SongService } from "services/SongService";
 
 export const SongList = () => {
   const { id } = useParams();
   const [state, setState] = useState<Song[]>([]);
+  const [image, setImage] = useState<FileList | null>(null);
+  const [song, setSong] = useState<FileList | null>(null);
+  const [open, setOpen] = useState(false);
+  const [newSong, setNewSong] = useState<NewSong>({
+    name: "",
+    category: "",
+    creator: "",
+  });
+
   useEffect(() => {
     SongService.GetAllSong().then((res) => {
       setState(res);
@@ -101,22 +110,148 @@ export const SongList = () => {
   ];
 
   const handleDeleteClick = (id: GridRowId) => () => {
-    setState(state.filter((row) => row.id !== id));
+    SongService.DeleteSong(id as string)
+      .then((res) => {
+        if (res.status === "ok") {
+          toastMessage("Xóa Thành công !", "success");
+          setState(state.filter((row) => row.id !== id));
+        } else {
+          toastMessage("Xóa Thất bại !", "error");
+        }
+      })
+      .catch((e) => {
+        toastMessage("Xóa Thất bại !", "error");
+      });
+  };
+
+  const handleFormInputChange = (
+    event:
+      | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent
+  ) => {
+    const inputName = event.target.name;
+    const inputChangeValue = event.target.value;
+    setNewSong({
+      ...newSong,
+      [inputName]: inputChangeValue,
+    });
+  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const selectSong = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSong(event.target.files);
+  };
+  const selectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setImage(event.target.files);
+  };
+
+  const handleAddSong = () => {
+    if (song != null && image != null) {
+      //upload file
+      SongService.UploadSong(
+        image[0],
+        song[0],
+        newSong.name,
+        newSong.category,
+        newSong.creator
+      )
+        .then((res) => {
+          if (res.status === 200) {
+            setState([...state, res.data.data]);
+            toastMessage("Thêm Thành công !", "success");
+          } else {
+            toastMessage("Thêm Thất bại !", "error");
+          }
+        })
+        .catch((e) => {
+          if (e.response.data.status === "fales") {
+            toastMessage("Tên người dùng tồn tại  !", "error");
+          } else {
+            toastMessage("Thêm Thất bại !", "error");
+          }
+        });
+    }
   };
   return (
-    <>
+    <Box>
       <CustomTypography>Danh sách nhạc</CustomTypography>
-      <Button sx={{ margin: 1 }} variant="contained" startIcon={<AddIcon />}>
-        Thêm nhạc
+      <Button
+        startIcon={<AddIcon />}
+        variant="contained"
+        onClick={handleClickOpen}>
+        Thêm Nhạc
       </Button>
       <DataGrid
-        sx={{ width: "100%", height: 350, marginTop: 2, padding: 2 }}
+        sx={{ width: "100%", height: 500, marginTop: 2, padding: 2 }}
         columns={columns}
         rows={state}
         // checkboxSelection
         getRowId={(row) => row.id}
         // onRowSelectionModelChange={handleSelectionChange}
       />
-    </>
+
+      <Dialog maxWidth="sm" fullWidth open={open} onClose={handleClose}>
+        <DialogTitle></DialogTitle>
+        <DialogContent>
+          <input
+            accept="image/*"
+            className="custom-file-input-image"
+            name="image"
+            multiple
+            type="file"
+            onChange={selectImage}
+          />
+          <input
+            accept="audio/mp3"
+            className="custom-file-input-song"
+            name="song"
+            multiple
+            type="file"
+            onChange={selectSong}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            name="name"
+            label="Tên nhạc"
+            fullWidth
+            variant="standard"
+            onChange={handleFormInputChange}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            name="category"
+            onChange={handleFormInputChange}
+            label="Thể loại"
+            fullWidth
+            variant="standard"
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            name="creator"
+            onChange={handleFormInputChange}
+            label="Người Tạo"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} variant="contained">
+            Thoát
+          </Button>
+          <Button onClick={handleAddSong} variant="contained">
+            Thêm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
   );
 };
