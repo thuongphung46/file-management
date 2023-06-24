@@ -26,4 +26,11 @@ export const PlayListService = {
       id: id,
     });
   },
+  //http://localhost:8083/api/Playlists/addsongtoplaylist?song=1&playlist=7
+  AddSongToPlayList: async (song: string, playlist: string) => {
+    return await HttpClientRequest(controller).putAsync(`addsongtoplaylist`, {
+      song: song,
+      playlist: playlist,
+    });
+  },
 };

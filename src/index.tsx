@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ProSidebarProvider } from "react-pro-sidebar";
 import { Provider } from "react-redux";
 import store from "redux/store";
 
@@ -12,11 +11,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <ProSidebarProvider>
-        <App />
-      </ProSidebarProvider>
-    </React.StrictMode>
+    <App />
   </Provider>
 );
 
