@@ -1,5 +1,5 @@
-import { Box, Button } from "@mui/material";
-import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
+import { Box } from "@mui/material";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { UserService } from "services/UserService";
 import { Playlist } from "types/UserResponse";
 import { useEffect, useState } from "react";

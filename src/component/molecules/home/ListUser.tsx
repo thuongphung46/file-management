@@ -7,7 +7,7 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import Dialog, { DialogProps } from "@mui/material/Dialog";
+import Dialog from "@mui/material/Dialog";
 import {
   DataGrid,
   GridActionsCellItem,

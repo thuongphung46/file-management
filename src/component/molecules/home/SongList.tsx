@@ -14,18 +14,22 @@ import {
   GridActionsCellItem,
   GridColDef,
   GridRowId,
+  GridRowSelectionModel,
 } from "@mui/x-data-grid";
 import { ChangeEvent, useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import CustomTypography from "component/atoms/CustomTypography";
-import { useParams } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import { Song, NewSong } from "types/SongResponse";
 import { toastMessage } from "component/molecules/toast/index";
 import { SongService } from "services/SongService";
 
-export const SongList = () => {
-  const { id } = useParams();
+interface IProps {
+  // databases: UpgradeableDatabase[];
+  onDatabaseSelectionChange: (proceedDatabase: string[]) => void;
+}
+
+export const SongList = ({ onDatabaseSelectionChange }: IProps) => {
   const [state, setState] = useState<Song[]>([]);
   const [image, setImage] = useState<FileList | null>(null);
   const [song, setSong] = useState<FileList | null>(null);
@@ -40,12 +44,12 @@ export const SongList = () => {
     SongService.GetAllSong().then((res) => {
       setState(res);
     });
-  }, [id]);
+  }, []);
 
   const columns: GridColDef[] = [
     {
       field: "thumbnailUrl",
-      headerName: "hình ảnh",
+      headerName: "Hình ảnh",
       width: 200,
       renderCell(params) {
         return (
@@ -61,13 +65,8 @@ export const SongList = () => {
       width: 200,
     },
     {
-      field: "category",
-      headerName: "Thể loại",
-      width: 100,
-    },
-    {
       field: "url",
-      headerName: "file",
+      headerName: "File",
       width: 300,
       renderCell(params) {
         return (
@@ -82,7 +81,7 @@ export const SongList = () => {
     },
     {
       field: "createdAt",
-      headerName: "ngày tạo",
+      headerName: "Ngày tạo",
       width: 100,
       renderCell(params) {
         return (
@@ -178,6 +177,10 @@ export const SongList = () => {
         });
     }
   };
+
+  const handleSelectionChange = (row: GridRowSelectionModel) => {
+    onDatabaseSelectionChange(row as string[]);
+  };
   return (
     <Box>
       <CustomTypography>Danh sách nhạc</CustomTypography>
@@ -191,9 +194,9 @@ export const SongList = () => {
         sx={{ width: "100%", height: 500, marginTop: 2, padding: 2 }}
         columns={columns}
         rows={state}
-        // checkboxSelection
+        checkboxSelection
         getRowId={(row) => row.id}
-        // onRowSelectionModelChange={handleSelectionChange}
+        onRowSelectionModelChange={handleSelectionChange}
       />
 
       <Dialog maxWidth="sm" fullWidth open={open} onClose={handleClose}>

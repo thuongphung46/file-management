@@ -4,11 +4,10 @@ import { HomePage } from "component/pages/home/HomePage";
 import { ListUser } from "component/molecules/home/ListUser";
 import { ListPlaylist } from "component/molecules/home/ListpPaylists";
 import { SongList } from "component/molecules/home/SongList";
-import { PlayList } from "component/molecules/home/PlayList";
 import SignIn from "component/molecules/signIn/index";
 import RootLayout from "component/templates/root_layout/RootLayout";
 import PlayListPage from "component/organisms/playlist/index";
-
+const handlde = () => {};
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,23 +21,22 @@ const router = createBrowserRouter([
         children: [
           { path: "/listuser", element: <ListUser /> },
           { path: "/listuser/playlists/:id", element: <ListPlaylist /> },
-          { path: "/listuser/playlists/song/:id", element: <SongList /> },
         ],
       },
       {
         path: "/listsong",
         element: <HomePage />,
-        children: [{ path: "/listsong", element: <SongList /> }],
+        children: [
+          {
+            path: "/listsong",
+            element: <SongList onDatabaseSelectionChange={handlde} />,
+          },
+        ],
       },
-      // {
-      //   path: "/playlist",
-      //   element: <HomePage />,
-      //   children: [{ path: "/playlist", element: <PlayList /> }],
-      // },
       {
         path: "playlist",
         element: <PlayListPage />,
-        children: [{ path: ":version", element: <PlayListPage /> }],
+        children: [{ path: ":id", element: <PlayListPage /> }],
       },
     ],
   },

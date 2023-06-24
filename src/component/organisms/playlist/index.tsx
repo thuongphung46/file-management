@@ -1,18 +1,23 @@
 import { Box, Button, Typography } from "@mui/material";
 // import DatabaseTable from "component/molecules/upgrade/DatabaseTable";
 // import VersionTable from "component/molecules/version_info/VersionTable";
-import { useState, useEffect } from "react";
-import { GrNext } from "react-icons/gr";
-import { useNavigate, useParams } from "react-router-dom";
-import { toastMessage } from "../../molecules/toast";
+import { useState } from "react";
 import { PlayList } from "component/molecules/home/PlayList";
 import { SongList } from "component/molecules/home/SongList";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useParams } from "react-router-dom";
 
 const PlayListPage = () => {
   const { version } = useParams();
-  // const [databases, setDatabases] = useState<UpgradeableDatabase[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  const handleDatabasesChange = (newSelectedIds: string[]) => {
+    setSelectedIds(newSelectedIds);
+  };
+
+  const handlerContinue = () => {
+    console.log(selectedIds);
+  };
 
   return (
     <Box>
@@ -24,7 +29,7 @@ const PlayListPage = () => {
         {version ? (
           <>
             <Typography variant={"h6"} color={"primary"}></Typography>
-            <SongList />
+            <SongList onDatabaseSelectionChange={handleDatabasesChange} />
             {/* <DatabaseTable
                 databases={databases}
                 onDatabaseSelectionChange={handleDatabasesChange}
@@ -34,8 +39,7 @@ const PlayListPage = () => {
         <Button
           startIcon={<ArrowForwardIosIcon />}
           variant={"contained"}
-          // onClick={handlerContinue}
-        >
+          onClick={handlerContinue}>
           Continue
         </Button>
       </Box>
