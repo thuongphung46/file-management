@@ -10,7 +10,6 @@ import { useParams } from "react-router-dom";
 export const ListPlaylist = () => {
   const { id } = useParams();
   const [state, setState] = useState<Playlist[]>([]);
-  const [show, setShow] = useState(false);
   useEffect(() => {
     UserService.GetUserById(id).then((res) => {
       if (res.status === "OK") {
