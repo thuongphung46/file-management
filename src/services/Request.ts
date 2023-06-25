@@ -1,8 +1,10 @@
 import axios, { HttpStatusCode } from "axios";
 import GlobalConstant from "constants/GlobalConstant";
-import { ApiResponse } from "types/ApiResponse";
+// import { ApiResponse } from "types/ApiResponse"; chưa dùng đến
 
-const baseUrl = process.env.REACT_APP_API_ENDPOINT;
+// const baseUrl = "http://localhost:8083/api";
+const baseUrl =
+  "http://ec2-3-106-133-27.ap-southeast-2.compute.amazonaws.com:8080";
 
 const axiosInstance = axios.create({
   baseURL: baseUrl,
@@ -47,17 +49,14 @@ const composeUri = (controller: string, action: string, obj: any) => {
 
 export const HttpClientRequest = (controller: string) => {
   return {
-    getAsync: async (
-      action: string,
-      params?: any
-    ): Promise<ApiResponse<any>> => {
+    getAsync: async (action: string, params?: any): Promise<any> => {
       try {
         let uri = composeUri(controller, action, params);
         return await axiosInstance
           .get(uri, params)
           .then((response) => {
             if (response.status === HttpStatusCode.Ok) {
-              return response.data as ApiResponse<any>;
+              return response.data as any;
             }
           })
           .catch((error) => {
@@ -71,10 +70,7 @@ export const HttpClientRequest = (controller: string) => {
       }
     },
 
-    postAsync: async (
-      action: string,
-      params?: any
-    ): Promise<ApiResponse<any>> => {
+    postAsync: async (action: string, params?: any): Promise<any> => {
       try {
         let uri = composeUri(controller, action, params);
 
@@ -95,6 +91,48 @@ export const HttpClientRequest = (controller: string) => {
           });
       } catch (error) {
         throw error;
+      }
+    },
+
+    deleteAsync: async (action: string, params?: any): Promise<any> => {
+      try {
+        let uri = composeUri(controller, action, params);
+        return await axiosInstance
+          .delete(uri, params)
+          .then((response) => {
+            if (response.status === HttpStatusCode.Ok) {
+              return response.data as any;
+            }
+          })
+          .catch((error) => {
+            if (error.response) {
+              return error.response;
+            }
+            throw error;
+          });
+      } catch (e) {
+        throw e;
+      }
+    },
+
+    putAsync: async (action: string, params?: any): Promise<any> => {
+      try {
+        let uri = composeUri(controller, action, params);
+        return await axiosInstance
+          .put(uri, params)
+          .then((response) => {
+            if (response.status === HttpStatusCode.Ok) {
+              return response.data as any;
+            }
+          })
+          .catch((error) => {
+            if (error.response) {
+              return error.response;
+            }
+            throw error;
+          });
+      } catch (e) {
+        throw e;
       }
     },
   };

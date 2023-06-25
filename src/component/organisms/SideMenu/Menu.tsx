@@ -11,20 +11,24 @@ import { Typography, Switch, Badge } from "@mui/material";
 import DiamondIcon from "@mui/icons-material/Diamond";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import HomeIcon from "@mui/icons-material/Home";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import Brightness6Icon from "@mui/icons-material/Brightness6";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import Brightness6Icon from "@mui/icons-material/Brightness6";
+
 import { SidebarHeader } from "component/organisms/SlidebarHeader";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { SidebarFooter } from "component/organisms/SidebarFooter";
-import HomeIcon from "@mui/icons-material/Home";
 import Confirm from "component/molecules/popup/confirm";
 import { clearToken } from "common/function";
 import { useAppDispatch } from "redux/hook";
 import { authActions } from "redux/slices/authSlice";
+import { BsMusicNoteList } from "react-icons/bs";
+import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
+import { RiPlayList2Fill } from "react-icons/ri";
 
 type Theme = "light" | "dark";
 
@@ -75,7 +79,7 @@ const hexToRgba = (hex: string, alpha: number) => {
 };
 
 export const Playground: React.FC = () => {
-  // const { collapseSidebar, collapsed } = useProSidebar();
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [hasImage, setHasImage] = useState<boolean>(false);
   const [theme, setTheme] = useState<Theme>("light");
@@ -89,6 +93,7 @@ export const Playground: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
+    navigate("/listuser");
   };
 
   const handleLogout = () => {
@@ -155,10 +160,22 @@ export const Playground: React.FC = () => {
 
   const menuData1 = [
     {
-      key: "DASHBOARD",
-      path: "/dashboard",
-      name: "Dashboard",
-      icon: <HomeIcon />,
+      key: "LISTUSER",
+      path: "/listuser",
+      name: "danh sách người dùng",
+      icon: <SupervisedUserCircleIcon />,
+    },
+    {
+      key: "LISTSONG",
+      path: "/listsong",
+      name: "danh sách bài hát",
+      icon: <BsMusicNoteList />,
+    },
+    {
+      key: "PLAYLIST",
+      path: "/playlist",
+      name: "danh sách play list",
+      icon: <RiPlayList2Fill />,
     },
   ];
 
@@ -229,7 +246,7 @@ export const Playground: React.FC = () => {
               })}
             </Menu>
             {/* ============================================================================================== */}
-            <div style={{ padding: "0 24px", marginBottom: "8px" }}>
+            {/* <div style={{ padding: "0 24px", marginBottom: "8px" }}>
               <Typography
                 variant="body2"
                 fontWeight={600}
@@ -239,9 +256,9 @@ export const Playground: React.FC = () => {
                 }}>
                 General
               </Typography>
-            </div>
+            </div> */}
             <Menu menuItemStyles={menuItemStyles}>
-              <SubMenu
+              {/* <SubMenu
                 label="Charts"
                 icon={<BarChartIcon />}
                 suffix={<Badge badgeContent={4} color="primary"></Badge>}>
@@ -256,16 +273,16 @@ export const Playground: React.FC = () => {
                     </MenuItem>
                   );
                 })}
-              </SubMenu>
-              <SubMenu label="Maps" icon={<TravelExploreIcon />}>
+              </SubMenu> */}
+              {/* <SubMenu label="Maps" icon={<TravelExploreIcon />}>
                 <MenuItem> Google maps</MenuItem>
                 <MenuItem> Open street maps</MenuItem>
-              </SubMenu>
+              </SubMenu> */}
               <SubMenu label="Theme" icon={<Brightness6Icon />}>
                 <MenuItem onClick={() => handleThemeDark()}>Dark</MenuItem>
                 <MenuItem onClick={() => handleThemeLight()}> Light</MenuItem>
               </SubMenu>
-              <SubMenu label="Components" icon={<DiamondIcon />}>
+              {/* <SubMenu label="Components" icon={<DiamondIcon />}>
                 <MenuItem> Grid</MenuItem>
                 <MenuItem> Layout</MenuItem>
                 <SubMenu label="Forms">
@@ -276,12 +293,12 @@ export const Playground: React.FC = () => {
                     <MenuItem> Radio</MenuItem>
                   </SubMenu>
                 </SubMenu>
-              </SubMenu>
-              <SubMenu label="E-commerce" icon={<AddShoppingCartIcon />}>
+              </SubMenu> */}
+              {/* <SubMenu label="E-commerce" icon={<AddShoppingCartIcon />}>
                 <MenuItem> Product</MenuItem>
                 <MenuItem> Orders</MenuItem>
                 <MenuItem> Credit card</MenuItem>
-              </SubMenu>
+              </SubMenu> */}
             </Menu>
 
             <div
@@ -290,7 +307,7 @@ export const Playground: React.FC = () => {
                 marginBottom: "8px",
                 marginTop: "32px",
               }}>
-              <Typography
+              {/* <Typography
                 variant="body2"
                 fontWeight={600}
                 style={{
@@ -298,11 +315,11 @@ export const Playground: React.FC = () => {
                   letterSpacing: "0.5px",
                 }}>
                 Extra
-              </Typography>
+              </Typography> */}
             </div>
             {/* =======================================================here */}
             <Menu menuItemStyles={menuItemStyles}>
-              <MenuItem
+              {/* <MenuItem
                 icon={<CalendarMonthIcon />}
                 suffix={
                   <Badge badgeContent={4} color="primary">
@@ -310,11 +327,11 @@ export const Playground: React.FC = () => {
                   </Badge>
                 }>
                 Calendar
-              </MenuItem>
-              <MenuItem icon={<LibraryBooksIcon />}>Documentation</MenuItem>
+              </MenuItem> */}
+              {/* <MenuItem icon={<LibraryBooksIcon />}>Documentation</MenuItem>
               <MenuItem disabled icon={<BarChartIcon />}>
                 Examples
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem style={{ marginBottom: 16, marginLeft: "-14px" }}>
                 <Switch
                   sx={{ zIndex: "6" }}
