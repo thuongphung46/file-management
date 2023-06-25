@@ -72,7 +72,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/dashboard");
+      navigate("/listuser");
     }
   }, [isLoggedIn, navigate]);
 
