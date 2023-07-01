@@ -2,6 +2,8 @@ import axios from "axios";
 import { HttpClientRequest } from "./Request";
 
 const controller = "Songs";
+// const baseUrl =
+//   "http://ec2-3-106-133-27.ap-southeast-2.compute.amazonaws.com:8080/api";
 const baseUrl = "http://localhost:8083/api";
 
 export const SongService = {
@@ -34,6 +36,8 @@ export const SongService = {
     });
   },
   DeleteSong: async (id: string | undefined) => {
-    return await HttpClientRequest(controller).deleteAsync(`delete/${id}`);
+    return await HttpClientRequest(controller).deleteAsync(`delete`, {
+      id: id,
+    });
   },
 };

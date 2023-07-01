@@ -3,6 +3,8 @@ import axios from "axios";
 
 const controller = "Users";
 const baseUrl = "http://localhost:8083/api";
+// const baseUrl =
+//   "http://ec2-3-106-133-27.ap-southeast-2.compute.amazonaws.com:8080/api";
 
 export const UserService = {
   GetUserById: async (id: string | undefined) => {
@@ -32,7 +34,9 @@ export const UserService = {
     });
   },
   DeleteUser: async (id: string | undefined) => {
-    return await HttpClientRequest(controller).deleteAsync(`delete/${id}`);
+    return await HttpClientRequest(controller).deleteAsync(`delete`, {
+      id: id,
+    });
   },
   UpdateUser: async (
     id: string | undefined,
