@@ -1,5 +1,5 @@
 const GlobalConstant = {
-  REQUEST_TIMEOUT: 5000,
+  REQUEST_TIMEOUT: 1200000,
 };
 
 export default GlobalConstant;

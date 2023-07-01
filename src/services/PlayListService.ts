@@ -2,9 +2,9 @@ import axios from "axios";
 import { HttpClientRequest } from "./Request";
 
 const controller = "Playlists";
-const baseUrl = "http://localhost:8083/api";
-// const baseUrl =
-//   "http://ec2-3-106-133-27.ap-southeast-2.compute.amazonaws.com:8080/api";
+// const baseUrl = "http://localhost:8083/api";
+const baseUrl =
+  "http://ec2-3-106-133-27.ap-southeast-2.compute.amazonaws.com:8080/api";
 
 export const PlayListService = {
   GetPlayList: async () => {
