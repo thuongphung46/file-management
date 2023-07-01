@@ -4,11 +4,12 @@ import { useState } from "react";
 import { PlayList } from "component/molecules/home/PlayList";
 import { SongList } from "component/molecules/home/SongList";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toastMessage } from "component/molecules/toast";
 
 const PlayListPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const handleDatabasesChange = (newSelectedIds: string[]) => {
@@ -27,6 +28,7 @@ const PlayListPage = () => {
     } else {
       toastMessage("chưa chọn bài hát", "error");
     }
+    navigate(`/song/playlist/${id}`);
   };
 
   return (
@@ -40,14 +42,15 @@ const PlayListPage = () => {
           <>
             <Typography variant={"h6"} color={"primary"}></Typography>
             <SongList onDatabaseSelectionChange={handleDatabasesChange} />
+            <Button
+              startIcon={<ArrowForwardIosIcon />}
+              variant={"contained"}
+              onClick={handlerContinue}>
+              Thêm nhạc vào playlist
+            </Button>
+            {/* <ListPlaylist /> */}
           </>
         ) : null}
-        <Button
-          startIcon={<ArrowForwardIosIcon />}
-          variant={"contained"}
-          onClick={handlerContinue}>
-          Thêm nhạc vào playlist
-        </Button>
       </Box>
     </Box>
   );

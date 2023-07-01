@@ -23,6 +23,7 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import { Song, NewSong } from "types/SongResponse";
 import { toastMessage } from "component/molecules/toast/index";
 import { SongService } from "services/SongService";
+import "./index.scss";
 
 interface IProps {
   // databases: UpgradeableDatabase[];
@@ -204,7 +205,7 @@ export const SongList = ({ onDatabaseSelectionChange }: IProps) => {
         <DialogContent>
           <input
             accept="image/*"
-            className="custom-file-input-image"
+            className="custom-file-input"
             name="image"
             multiple
             type="file"

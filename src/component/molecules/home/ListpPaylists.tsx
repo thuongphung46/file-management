@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import CustomTypography from "component/atoms/CustomTypography";
 import CustomLink from "component/atoms/CustomLink";
 import { useParams } from "react-router-dom";
-
+//list playlist of user
 export const ListPlaylist = () => {
   const { id } = useParams();
   const [state, setState] = useState<Playlist[]>([]);
@@ -21,7 +21,7 @@ export const ListPlaylist = () => {
   const columns: GridColDef[] = [
     {
       field: "name",
-      headerName: "Tên danh sách",
+      headerName: "Song",
       width: 200,
     },
     {
@@ -29,12 +29,9 @@ export const ListPlaylist = () => {
       headerName: "Thể loại",
       width: 100,
       renderCell(params) {
-        console.log(params);
         return (
           <>
-            <CustomLink to={`/dashboard/playlists/song/${params.id}`}>
-              {params.value}
-            </CustomLink>
+            <div>{params.value}</div>
           </>
         );
       },
@@ -57,16 +54,14 @@ export const ListPlaylist = () => {
   ];
 
   return (
-    <Box padding={4}>
-      <CustomTypography>Danh sách play list</CustomTypography>
+    <Box marginTop={4}>
+      <CustomTypography>Danh sách nhạc trong play list</CustomTypography>
 
       <DataGrid
         sx={{ width: "100%", height: 500, marginTop: 2, padding: 2 }}
         columns={columns}
         rows={state}
-        // checkboxSelection
         getRowId={(row) => row.id}
-        // onRowSelectionModelChange={handleSelectionChange}
       />
     </Box>
   );

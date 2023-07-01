@@ -42,8 +42,9 @@ export const PlayList = () => {
   useEffect(() => {
     PlayListService.GetPlayList().then((res) => {
       setState(res);
+      toastMessage("Chọn playList", "success");
     });
-  }, [id]);
+  }, []);
 
   const columns: GridColDef[] = [
     {
@@ -64,12 +65,18 @@ export const PlayList = () => {
       field: "name",
       headerName: "Tên playlist",
       width: 200,
-      renderCell(params) {
-        return (
-          <>
-            <CustomLink to="">{params.value}</CustomLink>
-          </>
-        );
+      cellClassName: "nameplaylist",
+      getActions: (data: any) => {
+        debugger;
+        return [
+          // <GridActionsCellItem
+          //   // icon={<DeleteIcon />}
+          //   value={}
+          //   label="Delete"
+          //   onClick={() => handleNavigate(id)}
+          //   color="inherit"
+          // />,
+        ];
       },
     },
     {
@@ -100,6 +107,10 @@ export const PlayList = () => {
       },
     },
   ];
+
+  const handleNavigate = (id: GridRowId) => {
+    navigate(`/song/playlist/${id}`);
+  };
 
   const handleDeleteClick = (id: GridRowId) => () => {
     PlayListService.DeletePlayList(id as string)

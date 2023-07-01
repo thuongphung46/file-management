@@ -130,12 +130,6 @@ export const ListUser = () => {
         return [
           <GridActionsCellItem
             icon={<DeleteIcon />}
-            label="Update"
-            onClick={handleUpdate(id)}
-            color="inherit"
-          />,
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
             label="Delete"
             onClick={handleDeleteClick(id)}
             color="inherit"

@@ -3,10 +3,15 @@ import { HttpClientRequest } from "./Request";
 
 const controller = "Playlists";
 const baseUrl = "http://localhost:8083/api";
+// const baseUrl =
+//   "http://ec2-3-106-133-27.ap-southeast-2.compute.amazonaws.com:8080/api";
 
 export const PlayListService = {
   GetPlayList: async () => {
     return await HttpClientRequest(controller).getAsync("ShowAll");
+  },
+  GetListSongPlaylist: async (id: string) => {
+    return await HttpClientRequest(controller).getAsync(`show/${id}`);
   },
   AddPlayList: async (id: string, name: string) => {
     const formData = new FormData();

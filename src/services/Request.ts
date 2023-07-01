@@ -2,16 +2,16 @@ import axios, { HttpStatusCode } from "axios";
 import GlobalConstant from "constants/GlobalConstant";
 // import { ApiResponse } from "types/ApiResponse"; chưa dùng đến
 
-// const baseUrl = "http://localhost:8083/api";
-const baseUrl =
-  "http://ec2-3-106-133-27.ap-southeast-2.compute.amazonaws.com:8080";
+const baseUrl = "http://localhost:8083/api";
+// const baseUrl =
+//   "http://ec2-3-106-133-27.ap-southeast-2.compute.amazonaws.com:8080/api";
 
 const axiosInstance = axios.create({
   baseURL: baseUrl,
   timeout: GlobalConstant.REQUEST_TIMEOUT,
   headers: {
     "Content-Type": "application/json",
-    Accept: "*/*",
+    // Accept: "*/*",
     "Access-Control-Allow-Origin": "*",
     // Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6WyJhZG1pbmlzdHJhdG9yQGlyc3ZpZXRuYW0uY29tIiwiUFlYSVMiLCIwMi8xMy8yMDIzIDA0OjQzOjA5IiwiMjAyMzAzMTMiXSwibmJmIjoxNjc2MjYzMzg5LCJleHAiOjE2Nzg2ODI1ODksImlhdCI6MTY3NjI2MzM4OX0.H8fldq4AknYQD5HUGWIjae1R_euC537mlrh9UCFreuE"
   },
