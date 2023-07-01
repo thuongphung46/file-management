@@ -2,9 +2,9 @@ import axios, { HttpStatusCode } from "axios";
 import GlobalConstant from "constants/GlobalConstant";
 // import { ApiResponse } from "types/ApiResponse"; chưa dùng đến
 
-const baseUrl = "http://localhost:8083/api";
-// const baseUrl =
-//   "http://ec2-3-106-133-27.ap-southeast-2.compute.amazonaws.com:8080/api";
+// const baseUrl = "http://localhost:8083/api";
+const baseUrl =
+  "http://ec2-3-106-133-27.ap-southeast-2.compute.amazonaws.com:8080/api";
 
 const axiosInstance = axios.create({
   baseURL: baseUrl,
