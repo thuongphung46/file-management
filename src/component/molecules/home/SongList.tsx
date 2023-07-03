@@ -52,13 +52,23 @@ export const SongList = ({ onDatabaseSelectionChange }: IProps) => {
   });
   useEffect(() => {
     SongService.GetAllSong().then((res) => {
-      setState(res);
+      if (res !== null) {
+        setState(res);
+      } else {
+        //toast
+        toastMessage("Không có dữ liệu !", "error");
+      }
     });
   }, []);
 
   useEffect(() => {
     Categories.GetAll().then((res) => {
-      setCategaries(res);
+      if (res !== null) {
+        setCategaries(res);
+      } else {
+        //toast
+        toastMessage("Không có dữ liệu !", "error");
+      }
     });
   }, []);
 
@@ -185,6 +195,8 @@ export const SongList = ({ onDatabaseSelectionChange }: IProps) => {
             toastMessage("Thêm Thất bại !", "error");
           }
         });
+    } else {
+      toastMessage("Vui lòng nhập đầy đủ thông tin !", "error");
     }
   };
 
@@ -237,22 +249,27 @@ export const SongList = ({ onDatabaseSelectionChange }: IProps) => {
             variant="standard"
             onChange={handleFormInputChange}
           />
-          <FormControl fullWidth size={"small"}>
-            <InputLabel id="demo-simple-select-readonly-label">
+          <FormControl fullWidth style={{ overflow: "auto" }} size={"small"}>
+            <InputLabel
+              sx={{ marginTop: 4 }}
+              id="demo-simple-select-readonly-label">
               Chọn thể loại
             </InputLabel>
             <Select
-              label="Thể loại"
+              label="Chọn thể loại"
               //   disabled={form_state === FORM_STATE.EDIT}
+              sx={{ marginTop: 4 }}
               onChange={handleFormInputChange}
               name="category"
               // value={newPlayList.id}
             >
-              {categaries.map((data, index) => (
-                <MenuItem key={`${data.id}-${index}`} value={data.id}>
-                  {data.name}
-                </MenuItem>
-              ))}
+              <div style={{ overflow: "auto", height: "200px" }}>
+                {categaries.map((data, index) => (
+                  <MenuItem key={`${data.id}-${index}`} value={data.id}>
+                    {data.name}
+                  </MenuItem>
+                ))}
+              </div>
             </Select>
           </FormControl>
         </DialogContent>
