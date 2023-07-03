@@ -3,6 +3,7 @@ import { ErrorPage } from "component/pages/error";
 import { HomePage } from "component/pages/home/HomePage";
 import { ListUser } from "component/molecules/home/ListUser";
 import { ListPlaylist } from "component/molecules/home/ListpPaylists";
+import { ListCategories } from "component/molecules/home/CategoriesList";
 import { SongList } from "component/molecules/home/SongList";
 import SignIn from "component/molecules/signIn/index";
 import RootLayout from "component/templates/root_layout/RootLayout";
@@ -37,8 +38,8 @@ const router = createBrowserRouter([
         children: [{ path: ":id", element: <PlayListPage /> }],
       },
       {
-        path: "/song/playlist/:id",
-        element: <ListPlaylist />,
+        path: "/categories",
+        element: <ListCategories />,
       },
     ],
   },

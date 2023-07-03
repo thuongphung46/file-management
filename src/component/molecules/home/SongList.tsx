@@ -8,7 +8,11 @@ import {
   DialogTitle,
   SelectChangeEvent,
   TextField,
+  InputLabel,
+  FormControl,
+  MenuItem,
 } from "@mui/material";
+import Select from "@mui/material/Select";
 import {
   DataGrid,
   GridActionsCellItem,
@@ -24,14 +28,20 @@ import { Song, NewSong } from "types/SongResponse";
 import { toastMessage } from "component/molecules/toast/index";
 import { SongService } from "services/SongService";
 import "./index.scss";
+import { Categories } from "services/categories_service";
 
 interface IProps {
   // databases: UpgradeableDatabase[];
   onDatabaseSelectionChange: (proceedDatabase: string[]) => void;
 }
+interface Categories {
+  id: string;
+  name: string;
+}
 
 export const SongList = ({ onDatabaseSelectionChange }: IProps) => {
   const [state, setState] = useState<Song[]>([]);
+  const [categaries, setCategaries] = useState<Categories[]>([]);
   const [image, setImage] = useState<FileList | null>(null);
   const [song, setSong] = useState<FileList | null>(null);
   const [open, setOpen] = useState(false);
@@ -40,10 +50,15 @@ export const SongList = ({ onDatabaseSelectionChange }: IProps) => {
     category: "",
     creator: "",
   });
-
   useEffect(() => {
     SongService.GetAllSong().then((res) => {
       setState(res);
+    });
+  }, []);
+
+  useEffect(() => {
+    Categories.GetAll().then((res) => {
+      setCategaries(res);
     });
   }, []);
 
@@ -154,13 +169,7 @@ export const SongList = ({ onDatabaseSelectionChange }: IProps) => {
   const handleAddSong = () => {
     if (song != null && image != null) {
       //upload file
-      SongService.UploadSong(
-        image[0],
-        song[0],
-        newSong.name,
-        newSong.category,
-        newSong.creator
-      )
+      SongService.UploadSong(image[0], song[0], newSong.name, newSong.category)
         .then((res) => {
           if (res.status === 200) {
             setState([...state, res.data.data]);
@@ -228,24 +237,24 @@ export const SongList = ({ onDatabaseSelectionChange }: IProps) => {
             variant="standard"
             onChange={handleFormInputChange}
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            name="category"
-            onChange={handleFormInputChange}
-            label="Thể loại"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            name="creator"
-            onChange={handleFormInputChange}
-            label="Người Tạo"
-            fullWidth
-            variant="standard"
-          />
+          <FormControl fullWidth size={"small"}>
+            <InputLabel id="demo-simple-select-readonly-label">
+              Chọn thể loại
+            </InputLabel>
+            <Select
+              label="Thể loại"
+              //   disabled={form_state === FORM_STATE.EDIT}
+              onChange={handleFormInputChange}
+              name="category"
+              // value={newPlayList.id}
+            >
+              {categaries.map((data, index) => (
+                <MenuItem key={`${data.id}-${index}`} value={data.id}>
+                  {data.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} variant="contained">

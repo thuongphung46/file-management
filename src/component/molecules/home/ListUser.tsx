@@ -80,7 +80,9 @@ export const ListUser = () => {
       renderCell(params) {
         return (
           <>
-            <CustomLink to={`/listuser/playlists/${params.id}`}>
+            <CustomLink
+              // to={`/listuser/playlists/${params.id}`
+              to="">
               {params.value}
             </CustomLink>
           </>

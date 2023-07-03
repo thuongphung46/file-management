@@ -16,6 +16,8 @@ export type ApiResponse<T> = {
 export type ApiRes = {
   api_msg_detail: any;
   content?: any;
+  status: any;
+  data: any;
   message?: string;
   msg_array: string;
   msg_code: number;

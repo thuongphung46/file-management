@@ -23,3 +23,7 @@ export interface Playlist {
   songs: any[];
   favorite: boolean;
 }
+
+export interface ICategories {
+  name: string;
+}

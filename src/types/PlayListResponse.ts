@@ -1,28 +1,28 @@
 export type PlayListRoot = {
-  id: string;
+  id: number;
   name: string;
-  creatorId: CreatorId;
+  creatorId?: CreatorId;
   createdAt: string;
   songs: any[];
   favorite: boolean;
 };
 
 export type CreatorId = {
-  id: string;
+  id: number;
   userName: string;
   password: string;
   name: string;
   avatarUrl: string;
   followers: any[];
-  followersCount: string;
+  followersCount: number;
   createdAt: string;
   playlists: Playlist[];
 };
 
 export type Playlist = {
-  id: string;
+  id: number;
   name: string;
-  creatorId: string;
+  creatorId: number;
   createdAt: string;
   songs: any[];
   favorite: boolean;
