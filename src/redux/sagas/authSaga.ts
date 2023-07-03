@@ -9,9 +9,9 @@ import { toastMessage } from "component/molecules/toast/index";
 
 function* handleLogin(payload: LoginPayload) {
   try {
-    const response: ApiRes = yield call(AuthService.Login, payload);
-    if (response.msg_code === 200) {
-      let token = response.content?.access_token;
+    const response: ApiRes = yield call(AuthService.LoginAdmin, payload);
+    if (response.status === "OK") {
+      let token = response.data[0].id;
       setToken(token);
       yield put(
         authActions.loginSuccess({

@@ -93,7 +93,7 @@ export const Playground: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
-    navigate("/listuser");
+    // navigate("/");
   };
 
   const handleLogout = () => {
@@ -175,6 +175,12 @@ export const Playground: React.FC = () => {
       key: "PLAYLIST",
       path: "/playlist",
       name: "danh sách play list",
+      icon: <RiPlayList2Fill />,
+    },
+    {
+      key: "CATEGORIES",
+      path: "/categories",
+      name: "danh sách thể loại",
       icon: <RiPlayList2Fill />,
     },
   ];

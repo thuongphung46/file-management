@@ -11,7 +11,7 @@ const RootLayout = () => {
 
   useEffect(() => {
     if (!currentUser) {
-      navigate("/listuser");
+      navigate("/login");
     }
   }, [currentUser, navigate]);
 

@@ -40,7 +40,7 @@ const theme = createTheme();
 export default function SignIn() {
   const navigate = useNavigate();
   const { isLoggedIn } = useAppSelector((state) => state.auth);
-  // const currentUser = Boolean(localStorage.getItem("access_token"));
+  const isLoggedInEd = Boolean(localStorage.getItem("access_token"));
 
   const dispatch = useAppDispatch();
   const [state, setstate] = useState({
@@ -71,10 +71,10 @@ export default function SignIn() {
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn || isLoggedInEd) {
       navigate("/listuser");
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, isLoggedInEd, navigate]);
 
   return (
     <ThemeProvider theme={theme}>

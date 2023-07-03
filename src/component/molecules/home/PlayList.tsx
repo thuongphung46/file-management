@@ -5,12 +5,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   SelectChangeEvent,
   TextField,
-  MenuItem,
   Grid,
-  InputLabel,
 } from "@mui/material";
 import {
   DataGrid,
@@ -18,21 +15,23 @@ import {
   GridColDef,
   GridRowId,
 } from "@mui/x-data-grid";
-import Select from "@mui/material/Select";
 import { ChangeEvent, useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import CustomTypography from "component/atoms/CustomTypography";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import { PlayListRoot } from "types/PlayListResponse";
+import { User } from "types/UserResponse";
 import { toastMessage } from "component/molecules/toast/index";
 import { PlayListService } from "services/PlayListService";
+import { UserService } from "services/UserService";
 import CustomLink from "component/atoms/CustomLink";
 
 export const PlayList = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
   const navigate = useNavigate();
   const [state, setState] = useState<PlayListRoot[]>([]);
+  const [listUser, setListUser] = useState<User[]>([]);
   const [open, setOpen] = useState(false);
   const [newPlayList, setNewPlayList] = useState({
     name: "",
@@ -46,19 +45,22 @@ export const PlayList = () => {
     });
   }, []);
 
+  useEffect(() => {
+    UserService.GetListUser().then((res) => {
+      setListUser(res);
+    });
+  }, []);
+
   const columns: GridColDef[] = [
     {
-      field: "",
+      field: "id",
       headerName: "Người tạo",
       width: 200,
       renderCell(params) {
-        //nếu params.row.creatorId tồn tại trong state.creatorId.id thì trả về state.creatorId.na
-        const creator = state.find(
-          (item) => item.creatorId.id === params.row.creatorId
-        );
-        return (
-          <>{creator ? creator?.creatorId.name : params.row.creatorId.name}</>
-        );
+        //nếu params.row.creatorId tồn tại trong listUser thì trả về listUser.name
+        const creator = listUser.find((item) => item.id === params.row.creator);
+        // return <>{creator ? creator.name : params.row.creatorId.name}</>;
+        return <>{creator?.name}</>;
       },
     },
     {
@@ -139,7 +141,7 @@ export const PlayList = () => {
 
   const handleAddPlayList = () => {
     if (newPlayList!) {
-      PlayListService.AddPlayList(newPlayList.id, newPlayList.name)
+      PlayListService.AddPlayList(newPlayList.name)
         .then((res) => {
           if (res.status === 200) {
             toastMessage("Thêm thành công !", "success");
@@ -177,25 +179,6 @@ export const PlayList = () => {
         <DialogTitle></DialogTitle>
         <DialogContent>
           <Grid top={2}>
-            <FormControl fullWidth size={"small"}>
-              <InputLabel id="demo-simple-select-readonly-label">
-                Chọn người tạo
-              </InputLabel>
-              <Select
-                label="chọn người tạo"
-                //   disabled={form_state === FORM_STATE.EDIT}
-                onChange={handleFormInputChange}
-                name="id"
-                value={newPlayList.id}>
-                {state.map((data, index) => (
-                  <MenuItem
-                    key={`${data.id}-${index}`}
-                    value={data.creatorId.id}>
-                    {data.creatorId.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
             <TextField
               autoFocus
               margin="dense"

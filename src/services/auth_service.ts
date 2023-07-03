@@ -16,22 +16,11 @@ const AuthService = {
       password,
     });
   },
-
-  Login: async (Params: Auth) => {
-    // return await HttpClientRequest(controller)
-    //   .postAsync("Login", Params)
-    //   .then((response) => {
-    //     if (data.msg_code === 200) {
-    //       return data;
-    //     }
-    //     return data;
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    if (data.msg_code === 200) {
-      return data;
-    }
+  LoginAdmin: async (param: Auth) => {
+    return await HttpClientRequest("Users").getAsync("loginAdmin", {
+      username: param.UserName,
+      password: param.Password,
+    });
   },
 
   logout: () => {
