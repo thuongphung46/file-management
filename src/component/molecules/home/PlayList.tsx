@@ -40,14 +40,24 @@ export const PlayList = () => {
 
   useEffect(() => {
     PlayListService.GetPlayList().then((res) => {
-      setState(res);
-      toastMessage("Chọn playList", "success");
+      if (res !== null) {
+        setState(res);
+        toastMessage("Chọn playList", "success");
+      } else {
+        //toast
+        toastMessage("Không có dữ liệu !", "error");
+      }
     });
   }, []);
 
   useEffect(() => {
     UserService.GetListUser().then((res) => {
-      setListUser(res);
+      if (res !== null) {
+        setListUser(res);
+      } else {
+        //toast
+        toastMessage("Không có dữ liệu !", "error");
+      }
     });
   }, []);
 

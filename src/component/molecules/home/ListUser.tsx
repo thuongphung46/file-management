@@ -151,16 +151,16 @@ export const ListUser = () => {
       }
     });
   };
-  const handleUpdate = (id: GridRowId) => () => {
-    // UserService.UpdateUser(id as string).then((res) => {
-    //   if (res.status === "ok") {
-    //     setState(state.filter((row) => row.id !== id));
-    //     toastMessage("Xóa thành công !", "success");
-    //   } else {
-    //     toastMessage("Xóa thất bại !", "error");
-    //   }
-    // });
-  };
+  // const handleUpdate = (id: GridRowId) => () => {
+  // UserService.UpdateUser(id as string).then((res) => {
+  //   if (res.status === "ok") {
+  //     setState(state.filter((row) => row.id !== id));
+  //     toastMessage("Xóa thành công !", "success");
+  //   } else {
+  //     toastMessage("Xóa thất bại !", "error");
+  //   }
+  // });
+  // };
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (
